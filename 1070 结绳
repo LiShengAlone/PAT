@@ -1,0 +1,123 @@
+/*
+1070 结绳 （25 分）
+给定一段一段的绳子，你需要把它们串成一条绳。每次串连的时候，是把两段绳子对折，再如下图所示套接在一起。
+这样得到的绳子又被当成是另一段绳子，可以再次对折去跟另一段绳子串连。每次串连后，原来两段绳子的长度就会减半。
+
+给定 N 段绳子的长度，你需要找出它们能串成的绳子的最大长度。
+输入格式：
+每个输入包含 1 个测试用例。每个测试用例第 1 行给出正整数 N (2≤N≤10^4)；
+第 2 行给出 N 个正整数，即原始绳段的长度，数字间以空格分隔。所有整数都不超过10^4。
+输出格式：
+在一行中输出能够串成的绳子的最大长度。结果向下取整，即取为不超过最大长度的最近整数。
+输入样例：
+8
+10 15 12 3 4 13 1 15
+输出样例：
+14
+
+//code:
+
+#include<stdio.h>
+#include <algorithm>
+#include<iostream>
+
+using namespace std;
+
+int ary[10000];
+
+int main()
+{
+	int N;
+	scanf("%d",&N);
+
+	for(int i=0;i<N;i++)
+	{
+		scanf("%d",&ary[i]);
+	}
+	
+	sort(ary,ary+N);
+	
+	for(int i=0;i<N-1;i++)
+	{
+		ary[i+1]=(ary[i]+ary[i+1])/2;
+	}
+	
+	printf("%d",ary[N-1]);
+	
+	return 0;
+}
+
+//超时
+
+/*#include<stdio.h>
+#include <algorithm>
+
+int ary[10000];
+
+int main()
+{
+	int N;
+	scanf("%d",&N);
+
+	for(int i=0;i<N;i++)
+	{
+		scanf("%d",&ary[i]);
+	}
+	
+	sort(ary,ary+N);
+	
+	
+	int yi,er;
+	int s,j,q,k,w;
+	
+	for(int i=0;i<N-1;i++)
+	{
+		for(j=0;j<N;j++)
+		{
+			if(ary[j]!=0)
+			{
+				yi=ary[j];
+				s=j;
+				break;
+			}
+		}
+		
+		
+		for(k=0;k<N;k++)
+		{
+			if(ary[k]!=0&&ary[k]<yi)
+			{
+				yi=ary[k];
+				s=k;
+			}
+		}
+		
+		ary[s]=0;
+		
+		for(w=0;w<N;w++)
+		{
+			if(ary[w]!=0)
+			{
+				er=ary[w];
+				s=w;
+				break;
+			}
+		}
+		
+		
+		for(q=0;q<N;q++)
+		{
+			if(ary[q]!=0&&ary[q]<er)
+			{
+				er=ary[q];
+				s=q;
+			}
+		}
+	
+		ary[s]=(yi+er)/2;
+	}
+	
+	printf("%d",ary[s]);
+	
+	return 0;
+}*/
