@@ -1,0 +1,68 @@
+/*
+
+1022 D进制的A+B （20 分）
+输入两个非负 10 进制整数 A 和 B (≤2^30−1)，输出 A+B 的 D (1<D≤10)进制数。
+输入格式：
+输入在一行中依次给出 3 个整数 A、B 和 D。
+输出格式：
+输出 A+B 的 D 进制数。
+输入样例：
+123 456 8
+输出样例：
+1103
+*/
+
+//code
+
+/*          转换后的shif超界
+#include<stdio.h>
+
+int main()
+{
+	int A,B,D;
+	scanf("%d %d %d",&A,&B,&D);
+	
+	A=A+B;
+	
+	int s=1;
+	int shif=0;
+	
+	do
+	{
+		shif+=A%D*s;
+		s*=10;
+		A/=D;
+		
+	}while(A!=0);
+	
+	printf("%d",shif);
+	
+	return 0;
+}
+*/
+
+#include<stdio.h>
+
+int main()
+{
+	int A,B,D;
+	scanf("%d %d %d",&A,&B,&D);
+	
+	A=A+B;
+	
+	int count[32];
+	int cnt=0;
+	
+	do
+	{
+		count[cnt++]=A%D;
+		A/=D;
+	}while(A!=0);
+	
+	for(int i=0;i<cnt;i++)
+	{
+		printf("%d",count[cnt-i-1]);
+	}
+	
+	return 0;
+}
