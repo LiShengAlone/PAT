@@ -1,0 +1,129 @@
+/*
+1007 素数对猜想 （20 分）
+让我们定义dn为：dn=pn+1−pn，其中pi是第i个素数。显然有d1=1，且对于n>1有dn是偶数。“素数对猜想”认为“存在无穷多对相邻且差为2的素数”。
+现给定任意正整数N(<10^5)，请计算不超过N的满足猜想的素数对的个数。
+输入格式:
+输入在一行给出正整数N。
+输出格式:
+在一行中输出不超过N的满足猜想的素数对的个数。
+输入样例:
+20
+输出样例:
+4
+*/
+
+/*
+
+//案例2出错      找素数方法值得学习
+#include<stdio.h>
+#include<math.h>
+#include<stdlib.h>
+
+int main()
+{
+	int N;
+	scanf("%d",&N);
+	int* prime=(int*)malloc(sizeof(int)*(N+1));
+	
+	int i,j,k;
+	for(i=2;i<=N;i++)
+	{		
+		if(i%2)
+		{
+			prime[i]=1;//奇数存为1
+		}
+		else
+		{
+			prime[i]=0;//偶数存为0 
+		}	
+	}	
+	
+	prime[2]=1;//2是素数 
+		
+	for(i=3;i<N;i+=2)//i+=2  i始终为奇数 在奇数中寻找素数
+	{		
+		if(prime[i]) //i为素数则执行 
+		{			
+			for(k=2;k<=sqrt(i);k++)
+			{
+				if(i%k==0)
+				{
+					prime[i]=0;//判断i是否为素数 如果i不是素数则存为0 
+				}		
+					
+			}
+				
+			if(prime[i]) //i为素数时 
+			{		
+				for(j=2*i;j<N;j+=i)//i的倍数都不为素数 
+				{
+					prime[j]=0;//i的倍数存为0 	
+				}	
+			}//执行完后如果i是素数则prime[i]为1 
+		}
+	}
+	
+	int cnt=0,yi=2;
+	for(i=3;i<N;i++)
+	{	
+		if(prime[i])
+		{
+			if(i-yi==2)
+			{
+				cnt++;
+			}
+			yi=i;
+		}
+	}
+	
+	printf("%d",cnt);
+	free(prime);
+	
+	return 0;
+} 
+
+*/
+
+#include<stdio.h>
+#include<math.h>
+
+int main()
+{
+	int N;
+	scanf("%d",&N);
+	
+	int cnt=0;
+	int flag=0;
+	int j;
+	
+	int yi=2,er;
+	for(int i=3;i<=N;i+=2)
+	{
+		flag=0;
+		j=2;
+		for(;j<=sqrt(i);j++)
+		{
+			if(i%j==0)
+			{
+				flag=1;
+				break;
+			}
+		}
+		if(flag==0)
+		{
+			er=i;
+		}	
+		
+		if(er-yi==2)
+		{
+			cnt++;
+		}
+		yi=er;
+	}
+
+	
+		
+	printf("%d",cnt);
+
+	return 0;
+}
