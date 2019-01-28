@@ -6,7 +6,7 @@
 <p>一些有意思的PAT题目！
 目的并不是提供答案，仅供一起交流、进步！</p>
 
-<p style="font-family:verdana;color:red;font-size:30px">（侵删）</p>
+<p style="font-family:verdana;color:red;font-size:5px">（侵删）</p>
 
 <p>邮箱：Liu775942295@163.com</p>
 
