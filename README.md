@@ -10,7 +10,6 @@
 
 <p>邮箱：Liu775942295@163.com</p>
 
-<p style="font-family:times;color:green">This text is in Times and green</p>
 
 <h1>刷PAT的一些经验：</h1>
 
