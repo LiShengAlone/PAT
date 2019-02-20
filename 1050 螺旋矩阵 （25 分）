@@ -1,0 +1,142 @@
+/*
+本题要求将给定的 N 个正整数按非递增的顺序，填入“螺旋矩阵”。所谓“螺旋矩阵”，是指从左上角第 1 个格子开始，按顺时针螺旋方向填充。
+要求矩阵的规模为 m 行 n 列，满足条件：m×n 等于 N；m≥n；且 m−n 取所有可能值中的最小值。
+输入格式：
+输入在第 1 行中给出一个正整数 N，第 2 行给出 N 个待填充的正整数。所有数字不超过 10^4，相邻数字以空格分隔。
+输出格式：
+输出螺旋矩阵。每行 n 个数字，共 m 行。相邻数字以 1 个空格分隔，行末不得有多余空格。
+输入样例：
+12
+37 76 20 98 76 42 53 95 60 81 58 93
+输出样例：
+98 95 93
+42 37 81
+53 20 76
+58 60 76
+*/
+
+#include<stdio.h>
+#include<algorithm>
+#include<stdlib.h>
+#include<math.h>
+using namespace std;
+
+bool comp(int &a,int &b)
+{
+	return a>b;
+}
+struct DUI
+{
+	int a,b;
+};
+int main()
+{
+	int N;
+	scanf("%d",&N);
+	int *ary=(int*)malloc(sizeof(int)*N);
+	DUI *dui=(DUI*)malloc(sizeof (DUI)*N);
+	int *jizheng=(int*)malloc(sizeof(int)*N);
+	for(int i=0;i<N;i++)
+	{
+		scanf("%d",&ary[i]);
+	}
+	sort(ary,ary+N,comp);
+	int duinum=0;
+	for(int i=1;i<=sqrt(N);i++)
+	{
+		for(int j=N;j>=i;j--)
+		{
+			if(i*j==N)
+			{
+				dui[duinum].a=i;
+				dui[duinum].b=j;
+				duinum++;
+				break;
+			}
+		}
+	}
+	
+	int minsub=0;
+	int cha=dui[0].b-dui[0].a;
+	
+	for(int i=1;i<duinum;i++)
+	{
+		if(cha>dui[i].b-dui[i].a&&dui[i].b-dui[i].a>=0)
+		{
+			minsub=i;
+			cha=dui[i].b-dui[i].a;
+		}
+	}
+	//行 dui[minsub].b，列 dui[minsub].a
+	int m=dui[minsub].b,n=dui[minsub].a;
+	free(dui);
+	
+	int count=0;
+	int i=-1,j=-1;
+	for(int yi=n,er=m,san=0,si=1;yi>=san&&er>=si;yi--,er--,san++,si++)
+	{
+		for(i++,j++;j<yi;j++)
+		{
+			jizheng[i*n+j]=ary[count];
+		//	printf("i=%d j=%d\n",i,j);
+			count++;
+		}
+		if(count==N)
+		{
+			break;
+		}
+		
+		for(i++,j--;i<er;i++)
+		{
+			jizheng[i*n+j]=ary[count];
+		//	printf("i=%d j=%d\n",i,j);
+			count++;
+		}
+		if(count==N)
+		{
+			break;
+		}
+		
+		for(j--,i--;j>=san;j--)
+		{
+			jizheng[i*n+j]=ary[count];
+		//	printf("i=%d j=%d\n",i,j);
+			count++;
+		}
+		if(count==N)
+		{
+			break;
+		}
+		
+		for(i--,j++;i>=si;i--)
+		{
+			jizheng[i*n+j]=ary[count];
+		//	printf("i=%d j=%d\n",i,j);
+			count++;
+		}
+		if(count==N)
+		{
+			break;
+		}
+		
+	}
+
+	
+	
+	for(int qq=0;qq<m;qq++)
+	{
+		for(int ss=0;ss<n;ss++)
+		{
+			printf("%d",jizheng[qq*n+ss]);
+			if(ss!=n-1)
+			{
+				printf(" ");
+			}
+		}
+		printf("\n");
+	}
+	
+	free(ary);
+	free(jizheng);
+	return 0;
+}
