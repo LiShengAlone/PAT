@@ -1,0 +1,138 @@
+/*
+本题的基本要求非常简单：给定 N 个实数，计算它们的平均值。但复杂的是有些输入数据可能是非法的。
+一个“合法”的输入是 [−1000,1000] 区间内的实数，并且最多精确到小数点后 2 位。当你计算平均值的时候，不能把那些非法的数据算在内。
+输入格式：
+输入第一行给出正整数 N（≤100）。随后一行给出 N 个实数，数字间以一个空格分隔。
+输出格式：
+对每个非法输入，在一行中输出 ERROR: X is not a legal number，其中 X 是输入。
+最后在一行中输出结果：The average of K numbers is Y，其中 K 是合法输入的个数，Y 是它们的平均值，
+精确到小数点后 2 位。如果平均值无法计算，则用 Undefined 替换 Y。如果 K 为 1，则输出 The average of 1 number is Y。
+输入样例 1：
+7
+5 -3.2 aaa 9999 2.3.4 7.123 2.35
+输出样例 1：
+ERROR: aaa is not a legal number
+ERROR: 9999 is not a legal number
+ERROR: 2.3.4 is not a legal number
+ERROR: 7.123 is not a legal number
+The average of 3 numbers is 1.38
+输入样例 2：
+2
+aaa -9999
+输出样例 2：
+ERROR: aaa is not a legal number
+ERROR: -9999 is not a legal number
+The average of 0 numbers is Undefined
+*/
+
+//code
+
+#include<stdio.h>
+
+inline int shift(char a)
+{
+	return int(a-48);
+}
+
+int main()
+{
+	int n;
+	scanf("%d",&n);
+	char data[100][100];
+  //////////////////////////////////////////////
+  /*
+  之前设为char data[100][20];  有一个测试点不能通过，没说明字符串长度的题目。数组要设的大点
+  */
+	for(int i=0;i<n;i++)
+	{
+		scanf("%s",&data[i]);
+	}
+	int hefanum=0;
+	float ave=0;
+	int PointFlag=0;
+	int ji=10;
+	float count=0;
+	bool fushuFlag=0;
+	bool hefaFlag=0;
+	int xiaoshudianhowei=1;
+	for(int i=0;i<n;i++)
+	{
+		ji=10;
+		count=0;
+		xiaoshudianhowei=1;
+		fushuFlag=0;
+		PointFlag=0;
+		hefaFlag=0;
+		for(int j=0;data[i][j]!='\0';j++)
+		{
+			if(data[i][j]==46||(data[i][j]>=48&&data[i][j]<=57))
+			{
+				if(data[i][j]==46)
+				{
+					PointFlag++;
+					if(PointFlag==2)
+					{
+						printf("ERROR: %s is not a legal number\n",data[i]);
+						hefaFlag=1;
+						break;
+					}
+					continue;
+				}
+				if(PointFlag==1)
+				{
+					xiaoshudianhowei*=10;
+					if(xiaoshudianhowei>100)
+					{
+						printf("ERROR: %s is not a legal number\n",data[i]);
+						hefaFlag=1;
+						break;
+					}
+				}
+				count=count*ji+char(data[i][j]-48);
+				
+			}
+			else if(data[i][j]==45)
+			{
+				fushuFlag=1;
+			}
+			else
+			{
+				printf("ERROR: %s is not a legal number\n",data[i]);
+				hefaFlag=1;
+				break;
+			}
+		}
+		count/=xiaoshudianhowei;
+		if(fushuFlag==1)
+		{
+			count=-count;
+		}
+		
+		if(count<-1000||count>1000)
+		{
+			printf("ERROR: %s is not a legal number\n",data[i]);
+			hefaFlag=1;
+		}
+		
+		if(hefaFlag==0)
+		{
+			hefanum++;
+			ave+=count;
+		}
+	}
+	
+	if(hefanum==0)
+	{
+		printf("The average of 0 numbers is Undefined");
+	}
+	else if(hefanum==1)
+	{
+		printf("The average of %d number is %.2f",hefanum,ave/hefanum);
+	}
+	else
+	{
+		printf("The average of %d numbers is %.2f",hefanum,ave/hefanum);
+	}
+	
+	return 0;
+}
