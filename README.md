@@ -15,3 +15,4 @@
 <p> /*1051 复数乘法 （15 分）  保留两位小数，如果小于0.01需要置零，见题--<a href="https://github.com/LiShengAlone/PAT/blob/master/1051%20复数乘法%20%EF%BC%8815%20分%EF%BC%89">1051 复数乘法 （15 分）</a></p>
 <p> /*1014 福尔摩斯的约会 （20 分） 要求大写字母，却没注意大写字母的范围是A-N，见题--<a href="https://github.com/LiShengAlone/PAT/blob/master/1014%20福尔摩斯的约会%20%EF%BC%8820%20分%EF%BC%89">1014 福尔摩斯的约会 （20 分）</a></p>
 
+<p> /*fabs的参数为double型，返回值也是double型abs的参数为int型，返回值也是int型。</p>
